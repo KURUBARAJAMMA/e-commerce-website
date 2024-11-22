@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Website</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Basic reset and layout */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav a {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.cart-icon {
+    cursor: pointer;
+}
+
+main {
+    padding: 20px;
+}
+
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+
+.product-card h3 {
+    margin: 0.5em 0;
+}
+
+.product-card button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    margin-top: 20px;
+}
+
+    </style>
+    <script>
+        const products = [
+    { id: 1, name: 'Product 1', price: 19.99 },
+    { id: 2, name: 'Product 2', price: 29.99 },
+    { id: 3, name: 'Product 3', price: 39.99 },
+    { id: 4, name: 'Product 4', price: 49.99 },
+];
+
+const cart = [];
+
+function renderProducts() {
+    const productContainer = document.getElementById('product-container');
+    products.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>Price: $${product.price.toFixed(2)}</p>
+            <button onclick="addToCart(${product.id})">Add to Cart</button>
+        `;
+        productContainer.appendChild(productCard);
+    });
+}
+
+function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    if (product) {
+        cart.push(product);
+        updateCartCount();
+        alert(`${product.name} added to cart!`);
+    }
+}
+
+function updateCartCount() {
+    document.getElementById('cart-count').innerText = cart.length;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderProducts();
+});
+
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Simple E-commerce</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Shop</a>
+            <a href="#">Contact</a>
+            <div class="cart-icon">Cart (<span id="cart-count">0</span>)</div>
+        </nav>
+    </header>
+    
+    <main>
+        <div id="product-container" class="product-container">
+            <!-- Products will be dynamically generated here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 E-commerce Website</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
